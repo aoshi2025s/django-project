@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Quiz</title>
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'quiz/style.css' %}">
-    </head>
-    <body>
-        <h1>Quiz</h1>
-    </body>
-</html>
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/quiz/{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

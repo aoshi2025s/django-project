@@ -1,0 +1,15 @@
+<h1>解答結果</h1>
+
+<p>問題：{{ question.question_text }}</p>
+<p>あなたの答え：{{ selected_choice.choice_text }}</p>
+
+{% if is_correct %}
+  <p style="color:green;"><strong>正解！</strong></p>
+{% else %}
+  <p style="color:red;"><strong>不正解…</strong></p>
+{% endif %}
+
+<h3>解説</h3>
+<p>{{ explanation }}</p>
+
+<a href="{% url 'quiz:index' %}">トップに戻る</a>
