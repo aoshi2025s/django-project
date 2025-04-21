@@ -1,0 +1,11 @@
+BEGIN;
+--
+-- Create model Question
+--
+CREATE TABLE "quiz_question" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "question_text" varchar(200) NOT NULL, "explanation" text NOT NULL);
+--
+-- Create model Choice
+--
+CREATE TABLE "quiz_choice" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "choice_text" varchar(200) NOT NULL, "is_correct" bool NOT NULL, "question_id" bigint NOT NULL REFERENCES "quiz_question" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE INDEX "quiz_choice_question_id_6297ad3f" ON "quiz_choice" ("question_id");
+COMMIT;

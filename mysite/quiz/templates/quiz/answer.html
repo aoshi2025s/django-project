@@ -1,0 +1,31 @@
+<h1>解答結果</h1>
+
+<p><strong>問題：</strong>{{ question.question_text }}</p>
+<p><strong>あなたの答え：</strong>{{ selected_choice.choice_text }}</p>
+
+{% if is_correct %}
+  <p style="color:green;"><strong>正解！</strong></p>
+{% else %}
+  <p style="color:red;"><strong>不正解…</strong></p>
+{% endif %}
+
+<h3>答え</h3>
+<p>{{ correct_choices }}</p>
+
+<h3>解説</h3>
+<p>{{ explanation }}</p>
+
+<br>
+
+{% if exist_next_question %}
+  <form action="{% url 'quiz:detail' %}" method="get">
+    <button type="submit">次の問題へ</button>
+  </form>
+{% else %}
+  <form action="{% url 'quiz:results' %}" method="get">
+    <button type="submit">結果を見る</button>
+  </form>
+{% endif %}
+
+<br>
+<a href="{% url 'quiz:index' %}">トップに戻る</a>

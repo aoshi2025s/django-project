@@ -1,0 +1,7 @@
+<h1>クイズアプリへようこそ！</h1>
+<p>スタートボタンを押すとクイズが始まります。</p>
+
+<form method="post" action="{% url 'quiz:index' %}">
+  {% csrf_token %}
+  <button type="submit">スタート</button>
+</form>
