@@ -41,7 +41,7 @@ def answer(request):
         request.session["score"] += 1
     
     request.session["current_question_index"] += 1
-    correct_choices = Choice.objects.filter(question=question, is_correct=True)
+    correct_choices = Choice.objects.filter(question=question, is_correct=True).first()
 
     exist_next_question = index + 1 < len(questions)
 
