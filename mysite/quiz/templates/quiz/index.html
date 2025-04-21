@@ -1,3 +1,4 @@
+<!--
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -7,3 +8,12 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+-->
+
+<h1>クイズアプリへようこそ！</h1>
+<p>スタートボタンを押すとクイズが始まります。</p>
+
+<form method="post" action="{% url 'quiz:index' %}">
+  {% csrf_token %}
+  <button type="submit">スタート</button>
+</form>

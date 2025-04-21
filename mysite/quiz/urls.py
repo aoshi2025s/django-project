@@ -7,11 +7,12 @@ urlpatterns = [
     # ex: /quiz/
     path("", views.index, name="index"),
     # ex: /quiz/5/
-    path("<int:question_id>/", views.detail, name="detail"),
+    # path("<int:question_id>/", views.detail, name="detail"),
+    path("detail/", views.detail, name="detail"),
     # ex: /quiz/5/results/
-    path("<int:question_id>/results/", views.results, name="results"),
+    path("results/", views.results, name="results"),
     # ex: /quiz/5/answer/
-    path("<int:question_id>/answer/", views.answer, name="answer"),
+    path("answer/", views.answer, name="answer"),
     # ex: /quiz/ranking/
     path("ranking/", views.ranking, name="ranking")
 ]

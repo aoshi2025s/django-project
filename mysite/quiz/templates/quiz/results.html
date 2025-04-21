@@ -1,0 +1,10 @@
+<h1>クイズ終了！</h1>
+
+<p>あなたのスコアは {{ score }} / {{ total }} 問 です。</p>
+<p>正答率：{{ percent }}%</p>
+
+<br>
+
+<a href="{% url 'quiz:index' %}">
+  <button>もう一度挑戦する</button>
+</a>

@@ -1,7 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
+from django.shortcuts import render, redirect
 
-# Create your views here.
 from django.http import HttpResponse
 from .models import Question, Choice
 
@@ -10,37 +8,64 @@ def index(request):
     top page?
     スタートボタンがあって、それを押したらdetailにページ遷移
     """
-    latest_question_list = Question.objects.all()
-    return render(request, "quiz/index.html", {"latest_question_list": latest_question_list})
+    if request.method == "POST":
+        request.session["current_question_index"] = 0
+        request.session["score"] = 0
+        return redirect("quiz:detail")
+    return render(request, "quiz/index.html")
 
-def detail(request, question_id):
+def detail(request):
     """
     4択の選択肢を表示
     """
-    question = get_object_or_404(Question, pk=question_id)
+    index = request.session.get("current_question_index", 0)
+    questions = list(Question.objects.all())
+
+    if index >= len(questions):
+        return redirect("quiz:results")
+    
+    question = questions[index]
     return render(request, "quiz/detail.html", {"question": question})
 
-def answer(request, question_id):
-    """
-    クイズの正解の表示と解説の表示
-    """
-    question = get_object_or_404(Question, pk=question_id)
+def answer(request):
+    if request.method != "POST":
+        return redirect("quiz.detail")
+    
+    index = request.session.get("current_question_index", 0) # TODO: この第二引数の0何？
+    questions = list(Question.objects.all())
+    question = questions[index]
+    selected_choice = question.choice_set.get(pk=request.POST["choice"])
+
+    is_correct = selected_choice.is_correct
+    if is_correct:
+        request.session["score"] += 1
+    
+    request.session["current_question_index"] += 1
     correct_choices = Choice.objects.filter(question=question, is_correct=True)
 
-    # TODO:ここなに？
-    selected_choice = question.choice_set.get(pk=request.POST["choice"])
-    is_correct = selected_choice.is_correct
+    exist_next_question = index + 1 < len(questions)
+
     return render(request, "quiz/answer.html", {
         "question": question,
         "is_correct": is_correct,
         "correct_choices": correct_choices,
+        "explanation": question.explanation,
+        "selected_choice": selected_choice,
+        "exist_next_question": exist_next_question
     })
 
-def results(request, question_id):
+
+def results(request):
     """
     クイズのScore(正解数・正解率など)を表示
     """
-    return HttpResponse(f"The Answer is {question_id}.")
+    score = request.session.get("score", 0)
+    total = Question.objects.count()
+    return render(request, "quiz/results.html", {
+        "score": score,
+        "total": total,
+        "percent": int(score / total * 100 ) if total > 0 else 0
+    })
 
 def ranking(request):
     """
