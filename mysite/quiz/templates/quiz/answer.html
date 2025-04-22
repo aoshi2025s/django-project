@@ -1,3 +1,6 @@
+{% extends "quiz/base.html" %}
+
+{% block content %}
 <h1>解答結果</h1>
 
 <p><strong>問題：</strong>{{ question.question_text }}</p>
@@ -29,3 +32,4 @@
 
 <br>
 <a href="{% url 'quiz:index' %}">トップに戻る</a>
+{% endblock %}

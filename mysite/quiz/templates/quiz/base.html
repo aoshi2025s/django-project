@@ -1,0 +1,28 @@
+<!-- quiz/templates/quiz/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Quiz App{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quiz/style.css' %}" >
+    <script src="{% static 'quiz/index.js' %}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>My Quiz App</h1>
+        <nav>
+            <a href="{% url 'quiz:index' %}">ホーム</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- 各ページでこの部分が上書きされる -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; aoshi2025s.</p>
+    </footer>
+</body>
+</html>

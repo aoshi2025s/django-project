@@ -1,3 +1,6 @@
+{% extends "quiz/base.html" %}
+
+{% block content %}
 <h1>クイズ終了！</h1>
 
 <p>あなたのスコアは {{ score }} / {{ total }} 問 です。</p>
@@ -8,3 +11,4 @@
 <a href="{% url 'quiz:index' %}">
   <button>もう一度挑戦する</button>
 </a>
+{% endblock %}
