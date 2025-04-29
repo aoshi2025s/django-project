@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from .models import Question, Choice
 
 
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     """
     top page?
     スタートボタンがあって、それを押したらdetailにページ遷移
@@ -16,7 +16,7 @@ def index(request):
     return render(request, "quiz/index.html")
 
 
-def detail(request):
+def detail(request: HttpRequest) -> HttpResponse:
     """
     4択の選択肢を表示
     """
@@ -30,7 +30,7 @@ def detail(request):
     return render(request, "quiz/detail.html", {"question": question})
 
 
-def answer(request):
+def answer(request: HttpRequest) -> HttpResponse:
     if request.method != "POST":
         return redirect("quiz.detail")
 
@@ -64,7 +64,7 @@ def answer(request):
     )
 
 
-def results(request):
+def results(request: HttpRequest) -> HttpResponse:
     """
     クイズのScore(正解数・正解率など)を表示
     """

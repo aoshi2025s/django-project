@@ -12,7 +12,8 @@ format:
 	uv run ruff format .
 
 type:
-	uv run mypy ./quiz/views.py
+	uv run mypy quiz/views.py --ignore-missing-imports
+# --ignore-missing-importsで 型がわからない外部ライブラリは無視する
 
 # TODO: テストライブラリとか調べる
 test:

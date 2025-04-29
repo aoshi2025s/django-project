@@ -6,7 +6,7 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     explanation = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.question_text
 
 
@@ -15,5 +15,5 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     is_correct = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.choice_text
