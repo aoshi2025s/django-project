@@ -24,6 +24,10 @@ uv init
 
 uv add django-admin
 
+# 仮想環境に入らずに実行
+uv run program.py
+uv run mysite/manage.py runserver
+
 # 仮想環境に入る
 source .venv/bin/activate
 

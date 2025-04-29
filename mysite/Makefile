@@ -3,18 +3,21 @@ all: typecheck run
 #	lint typecheck test run
 
 run:
-	python manage.py runserver
+	uv run manage.py runserver
 
-# TODO: いい感じのlinter調べる
 lint:
-	flake8 or ruff?
+	uv run ruff check .
 
-typecheck:
-	mypy quiz/*.py
+format:
+	uv run ruff format .
+
+type:
+	uv run mypy quiz/views.py --ignore-missing-imports
+# --ignore-missing-importsで 型がわからない外部ライブラリは無視する
 
 # TODO: テストライブラリとか調べる
 test:
-	pytest
+	uv run pytest
 
 # ------------ 例なので実際には使わない ------------
 target_name: 依存関係
@@ -30,4 +33,4 @@ program: main.o
 	gcc main.o -o program
 # ----------------------------------------------
 
-.PHOONY: run type test lint
+.PHOONY: run type test lint format

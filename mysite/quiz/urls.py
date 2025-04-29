@@ -14,5 +14,5 @@ urlpatterns = [
     # ex: /quiz/5/answer/
     path("answer/", views.answer, name="answer"),
     # ex: /quiz/ranking/
-    path("ranking/", views.ranking, name="ranking")
+    path("ranking/", views.ranking, name="ranking"),
 ]
